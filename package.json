@@ -24,7 +24,7 @@
     "start": "hoodie"
   },
   "dependencies": {
-    "hoodie": "^21.0.0"
+    "hoodie": "^22.0.1"
   },
   "frontend-test-setup": {
     "server": {
