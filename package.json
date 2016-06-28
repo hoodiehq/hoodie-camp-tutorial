@@ -24,6 +24,6 @@
     "start": "hoodie"
   },
   "dependencies": {
-    "hoodie": "^22.2.1"
+    "hoodie": "^23.0.0"
   }
 }
