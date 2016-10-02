@@ -26,6 +26,13 @@ Once installation is done, you can start the app with
 npm start
 ```
 
+Once the 🐶 Hoodie app is running, you can open your browser to
+
+```
+localhost:8080
+```
+
+
 ## License
 
 [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
