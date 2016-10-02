@@ -32,6 +32,11 @@ Once the 🐶 Hoodie app is running, you can open your browser to
 localhost:8080
 ```
 
+You can compare this with the live version of this app by opening your browser to
+```
+https://camp-tutorial.hood.ie/
+```
+
 
 ## License
 
