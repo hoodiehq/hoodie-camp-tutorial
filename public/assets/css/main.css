@@ -85,7 +85,7 @@ body {
 }
 
 [data-service-worker="ready"] .service-worker.ready {
-  display: block;i
+  display: block;
 }
 [data-service-worker="error"] .service-worker.error {
   display: block;
