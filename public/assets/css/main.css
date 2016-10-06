@@ -73,8 +73,19 @@ body {
 .service-worker.loading {
   display: block;
 }
+
+.service-worker-status-text {
+  text-align: center;
+}
+
+.service-worker-status {
+  font-size: 1.2em; 
+  border: 1px solid black;
+  padding: 0 3px 0 3px; 
+}
+
 [data-service-worker="ready"] .service-worker.ready {
-  display: block;
+  display: block;i
 }
 [data-service-worker="error"] .service-worker.error {
   display: block;
