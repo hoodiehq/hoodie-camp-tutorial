@@ -9,7 +9,8 @@ to learn all the basics about `hoodie.store` and `hoodie.account`.
 
 - [git](http://www.git-scm.com/)
 - [node](https://nodejs.org/en/) v4.4+
-- npm v3+. npm comes with node, check with `npm -v`, install latest: `npm install -g npm`
+- [npm](https://www.npmjs.com/) v3+
+- Note: npm comes with node. To check what version you have, run: `npm -v`. To install the latest, run: `npm install -g npm`
 
 ## Installation & start
 
@@ -24,6 +25,18 @@ Once installation is done, you can start the app with
 ```
 npm start
 ```
+
+Once the 🐶 Hoodie app is running, you can open your browser to
+
+```
+localhost:8080
+```
+
+You can compare this with the live version of this app by opening your browser to
+```
+https://camp-tutorial.hood.ie/
+```
+
 
 ## License
 
