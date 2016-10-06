@@ -14,7 +14,7 @@ to learn all the basics about `hoodie.store` and `hoodie.account`.
 ## Installation & start
 
 ```
-git clone git@github.com:hoodiehq/hoodie-camp-tutorial.git
+git clone https://github.com/hoodiehq/hoodie-camp-tutorial.git
 cd hoodie-camp-tutorial
 npm install
 ```
