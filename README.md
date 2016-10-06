@@ -24,8 +24,17 @@ Once installation is done, you can start the app with
 ```
 npm start
 ```
-after that your terminal will tell "Your Hoodie app has started on: http://Your machine's name:8080",
-however open your browser and navigate to http://localhost:8080
+
+After that your terminal will tell "
+```
+Your Hoodie app has started on: http://Your machine's name:8080"
+```
+
+However open your browser and navigate to
+
+```
+http://localhost:8080
+```
 
 ## License
 
