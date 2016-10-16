@@ -65,6 +65,11 @@ body {
 .copy p {
   margin: 0;
 }
+@media (min-width: 767px) {
+  .jumbotron {
+    text-align: center;
+  }
+}
 
 .colorList {
   margin: 20px 0;
