@@ -46,14 +46,24 @@ hoodie.store.findAll().then(function(colors) {
 
   // check if color entries exist
   if (colors.length === 0) {
-    $list.replaceWith('<hr><p>Looks like you did not add colors yet, go back to <a href="/4.html">the last step</a>.</p><hr>');
+    $list.replaceWith(
+      '<hr><p>' +
+      'Looks like you did not add colors yet, ' +
+      'go back to <a href="/4.html">the last step</a>.' +
+      '</p><hr>'
+    );
     return;
   }
 
   // add all saved colors to the list
   colors = colors.sort(byCreatedAt)
   colors.forEach(function(color) {
-    $list.append('<li><span>'+color.name+'</span> <a style="color: #c00; font-weight: bold;" href="#" data-id="'+color.id+'">×</a></li>');
+    $list.append(
+      '<li>' +
+      '<span>'+color.name+'</span> ' +
+      '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+      '</li>'
+    );
   });
 
   // set to current background color
@@ -74,9 +84,11 @@ $('.colorList').on('click', 'a', function(event) {
 
   // update current color
   if ($('.colorList li').length) {
-    $(document.body).css('background', $('.colorList li span').eq(0).text())
+    $(document.body).css('background',
+      $('.colorList li span').eq(0).text()
+    );
   } else {
-    $(document.body).css('background', 'transparent')
+    $(document.body).css('background', 'transparent');
   }
 })
 </script>

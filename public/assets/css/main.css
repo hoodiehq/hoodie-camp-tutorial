@@ -24,15 +24,8 @@ body {
 }
 
 /* Make the content easier to read by limiting the width of the elements. */
-.content .ciu_embed,
-.content .well,
-.content hr,
-.content h2,
-.content h3,
-.content ul,
-.content p,
-.content nav {
-  max-width: 600px;
+.content {
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -94,6 +87,10 @@ body {
   margin-left: 20px;
   font-style: italic;
   font-size: 0.8;
+}
+.colorList li .remove {
+  color: #c00;
+  font-weight: bold;
 }
 
 .content h3 {

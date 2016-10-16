@@ -42,7 +42,11 @@
 <script>
 var lastColorId;
 function addNewColorToList(color) {
-  $('.colorList').prepend('<li data-id="'+color.id+'">'+color.name+' (id: '+color.id+')</li>');
+  $('.colorList').prepend(
+    '<li data-id="'+color.id+'">' +
+      color.name + ' (id: '+color.id+')' +
+    '</li>'
+    );
   $(document.body).css('background', color.name);
   lastColorId = color.id;
 }
@@ -53,7 +57,8 @@ function removeColorFromList(color) {
   }
 }
 function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').text(color.name+' (id: '+color.id+')');
+  $('.colorList').find('[data-id="'+color.id+'"]')
+    .text(color.name+' (id: '+color.id+')');
   if (color.id === lastColorId) {
     $('html').css('background', color.name);
   }
@@ -71,7 +76,12 @@ hoodie.store.on('update', updateColorOnList);
 $(function() {
   hoodie.store.findAll().then(function(colors) {
     if (colors.length === 0) {
-      $('.colorList').replaceWith('<hr><p>Looks like you did not add colors yet, go back to <a href="/4.html">step four</a>.</p><hr>');
+      $('.colorList').replaceWith(
+        '<hr><p>' +
+        'Looks like you did not add colors yet, go back to ' +
+        '<a href="/4.html">step four</a>.' +
+        '</p><hr>'
+      );
     }
     colors.sort(byCreatedAt).forEach(addNewColorToList);
   })

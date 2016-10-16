@@ -171,14 +171,20 @@ function showSignOutButton() {
 }
 
 function addNewColorToList(color) {
-  $('.colorList').prepend('<li data-id="'+color.id+'"><span>'+color.name+'</span> (id: '+color.id+') <a style="color: #c00; font-weight: bold;" href="#" data-id="'+color.id+'">×</a></li>');
+  $('.colorList').prepend(
+    '<li data-id="'+color.id+'">' +
+    '<span>'+color.name+'</span> (id: '+color.id+') ' +
+    '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+    '</li>'
+  );
   $('html').css('background', color.name);
 }
 function removeColorFromList(color) {
   $('.colorList').find('[data-id="'+color.id+'"]').remove();
 }
 function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').text(color.name+' (id: '+color.id+')');
+  $('.colorList').find('[data-id="'+color.id+'"]')
+    .text(color.name+' (id: '+color.id+')');
   $('html').css('background', $('.colorList li span').eq(0).text())
 }
 function clearColorList() {
