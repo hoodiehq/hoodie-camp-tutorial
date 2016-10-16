@@ -22,6 +22,37 @@ body {
   padding: 20px;
 }
 
+/* Make the content easier to read by limiting the width of the elements. */
+.content .ciu_embed,
+.content .well,
+.content hr,
+.content h2,
+.content h3,
+.content ul,
+.content p,
+.content nav {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add more space around the page elements */
+.content nav:last-child {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+.content pre,
+.content .service-worker-status-text {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.content form {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.content .ciu_embed {
+  margin-top: 30px;
+}
 
 .copy {
   padding: 20px;
