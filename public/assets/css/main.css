@@ -119,10 +119,20 @@ body {
 .connect-status,
 .status,
 .connection-status {
-  font-size: 1.2em; 
-  border: 1px solid #428bca;
-  border-radius: 4px;
-  padding: 0 5px 2px 5px; 
+  padding: 0 5px 2px 5px;
+}
+
+.glyphicon {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+
+.connect-status-success{
+  color: #690;
+}
+
+.connect-status-error{
+  color: #F00;
 }
 
 [data-service-worker="ready"] .service-worker.ready {
