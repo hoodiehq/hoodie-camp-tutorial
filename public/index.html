@@ -45,7 +45,7 @@
 
 <script>
   // This is the script controlling the ServiceWorker status above
-  function setState(state) {
+  function showState(state) {
     if (state === 'activated') {
       $('.service-worker-status').text('ready!');
     } else {
@@ -61,14 +61,14 @@
       scope: '.'
     })
       .then(function(registration) {
-        var serviceWorker = registration.installing || 
-                            registration.waiting || 
+        var serviceWorker = registration.installing ||
+                            registration.waiting ||
                             registration.active;
 
         if (serviceWorker) {
-          setState(serviceWorker.state);
+          showState(serviceWorker.state);
           serviceWorker.addEventListener('statechange', function(e) {
-            setState(e.target.state);
+            showState(e.target.state);
           });
         }
       }).catch(function(error) {
