@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/prism/prism.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script src="assets/vendor/prism/prism.js"></script>
     <!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
     <script src="/hoodie/client.js"></script>
@@ -47,18 +47,18 @@ hoodie.connectionStatus.startChecking({interval: 1000});
 
 // check initial connection status
 if (hoodie.connectionStatus.ok === false) {
-  $('.connect-status').text('offline ¯\\_(ツ)_/¯');
+  $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span>  offline ¯\\_(ツ)_/¯');
 }
 
 hoodie.connectionStatus.on('disconnect', function () {
-  $('.connect-status').text('offline ¯\\_(ツ)_/¯');
+  $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span> offline ¯\\_(ツ)_/¯');
 });
 hoodie.connectionStatus.on('reconnect', function () {
-  $('.connect-status').text('online :)');
+  $('.connect-status').html('<span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> online :)');
 });
 </script>
 
-        <h3>You current connection status is: <strong class="connect-status">online :)</strong></h3>
+        <h3>You current connection status is: <strong class="connect-status"><span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> online :)</strong></h3>
 
         <p>
           By default, Hoodie checks the connection every 30 seconds once you
