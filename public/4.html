@@ -58,10 +58,10 @@ $('#formColor').submit(function(event) {
   });
 });
 
-// when the site loads in the browser,
-// we load all previously saved colors from hoodie
-// order them descending by the time they were created
-// and set the last one as the background color and input value
+/*when the site loads in the browser, 
+we load all previously saved colors from hoodie order them descending by the time they were created
+and set the last one as the background color and input value*/
+  
 hoodie.store.findAll().then(function(colors) {
   colors = colors.sort(byCreatedAt);
 
@@ -76,7 +76,7 @@ hoodie.store.findAll().then(function(colors) {
         <p>
           Mission accomplished. Colors get stored and loaded again.
           And the best thing: the colors are stored in your browser. You can
-          turn off your wifi connection, it will still work. No errors, no warnings, no different interface. It just works.
+          turn off your wifi connection, it will still work. No errors, no warnings, no different interface. It works, all the way fine.
         </p>
 
         <p>
