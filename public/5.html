@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/prism/prism.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script src="assets/vendor/prism/prism.js"></script>
     <!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
     <script src="/hoodie/client.js"></script>
@@ -35,7 +35,7 @@
 
         <ul class="colorList"></ul>
 
-        Here's the code that populates the list above:
+        <p>Here's the code that populates the list above:</p>
 
 <script>
 // when the site loads in the browser,
@@ -46,14 +46,24 @@ hoodie.store.findAll().then(function(colors) {
 
   // check if color entries exist
   if (colors.length === 0) {
-    $list.replaceWith('<hr><p>Looks like you did not add colors yet, go back to <a href="/4.html">the last step</a>.</p><hr>');
+    $list.replaceWith(
+      '<hr><p>' +
+      'Looks like you did not add colors yet, ' +
+      'go back to <a href="/4.html">the last step</a>.' +
+      '</p><hr>'
+    );
     return;
   }
 
   // add all saved colors to the list
   colors = colors.sort(byCreatedAt)
   colors.forEach(function(color) {
-    $list.append('<li><span>'+color.name+'</span> <a style="color: #c00; font-weight: bold;" href="#" data-id="'+color.id+'">×</a></li>');
+    $list.append(
+      '<li>' +
+      '<span>'+color.name+'</span> ' +
+      '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+      '</li>'
+    );
   });
 
   // set to current background color
@@ -74,9 +84,11 @@ $('.colorList').on('click', 'a', function(event) {
 
   // update current color
   if ($('.colorList li').length) {
-    $(document.body).css('background', $('.colorList li span').eq(0).text())
+    $(document.body).css('background',
+      $('.colorList li span').eq(0).text()
+    );
   } else {
-    $(document.body).css('background', 'transparent')
+    $(document.body).css('background', 'transparent');
   }
 })
 </script>

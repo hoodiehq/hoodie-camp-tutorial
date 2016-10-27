@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/prism/prism.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script src="assets/vendor/prism/prism.js"></script>
     <!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
     <script src="/hoodie/client.js"></script>
@@ -44,47 +44,56 @@
 
 
 <script>
-
-  function setState(state) {
+  // This is the script controlling the ServiceWorker status above
+  function showState(state) {
     if (state === 'activated') {
-      $('.service-worker-status').text('ready!');
+      $('.service-worker-status').html('<span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> ready');
+
     } else {
       $('.service-worker-status').text(state);
     }
   }
 
   if ('serviceWorker' in navigator) {
-    // Override the default scope of '/' with '.', so that the registration applies
-    // to the current directory and everything underneath it.
+    // If yes, hoodie will override the default scope of '/' with '.'
+    // so that the registration applies to the current directory and
+    // everything underneath it.
     navigator.serviceWorker.register('sw.js', {
       scope: '.'
     })
       .then(function(registration) {
-        var serviceWorker = registration.installing || registration.waiting || registration.active;
+        var serviceWorker = registration.installing ||
+                            registration.waiting ||
+                            registration.active;
 
         if (serviceWorker) {
-          setState(serviceWorker.state);
+          showState(serviceWorker.state);
           serviceWorker.addEventListener('statechange', function(e) {
-            setState(e.target.state);
+            showState(e.target.state);
           });
         }
       }).catch(function(error) {
-        // Something went wrong during registration. The sw.js file
-        // might be unavailable or contain a syntax error.
+        // If you see 'error! :(', something went wrong during registration.
+        // The sw.js file might be unavailable or contain a syntax error.
         $('.service-worker-status').text('error! :(');
       });
   } else {
+    // If ServiceWorker is not found in navigator,
     // The current browser doesn't support service workers.
-    $('.service-worker-status').text('not available :(');
+    $('.service-worker-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span> not available :(');
+
   }
 </script>
 
+        <h3>Browser Support</h3>
         <p>
           ServiceWorker is currently supported in Chrome &amp; Firefox, and
           both <a href="http://status.modern.ie/serviceworker">Edge</a> and
           <a href="https://webkit.org/status/#specification-service-workers">WebKit</a>
           are working on it.
+          See the latest support on <a href="http://caniuse.com/#feat=serviceworkers">caniuse.com</a>.
         </p>
+        <div class="ciu_embed" data-feature="serviceworkers" data-periods="future_1,current,past_1,past_2"></div>
 
         <p>
           Don’t worry if your browser doesn't support ServiceWorker yet, it only
@@ -101,5 +110,6 @@
     </div> <!-- /.container -->
 
     <script src="assets/js/main.js"></script>
+    <script src="//cdn.jsdelivr.net/caniuse-embed/1.0.1/caniuse-embed.min.js"></script>
   </body>
 </html>

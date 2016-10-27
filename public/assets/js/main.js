@@ -10,14 +10,14 @@ $('.content script').each(function() {
 // add pagination
 var numPages = 9;
 var currentPage = parseInt(location.pathname.substr(1)) || 1;
-var pagination = '<ul class="pagination">\n';
+var pagination = '<nav><ul class="pagination">\n';
 pagination += '  <li><a href="/">1</a></li>\n';
 
 for (var i = 2; i <= numPages; i++) {
   pagination += '  <li><a href="/'+i+'.html">'+i+'</a></li>\n';
 };
 
-pagination += '</ul>';
+pagination += '</ul></nav>';
 var $pagination = $(pagination)
 $pagination.find('li').eq(currentPage-1).addClass('active');
 $('.content').prepend($pagination).append($pagination.clone())

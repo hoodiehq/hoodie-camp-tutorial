@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/prism/prism.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script src="assets/vendor/prism/prism.js"></script>
     <!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
     <script src="/hoodie/client.js"></script>
@@ -35,14 +35,18 @@
 
         <ul class="colorList"></ul>
 
-        This time, we'll make it more dynamic by listening to events,
+        <p>This time, we'll make it more dynamic by listening to events,
         so we can re-use some code. At the same time, this will
-        work out of the box in case we have changes coming in from the server. This will save us some work later, and give us cross-device syncing for free.
+        work out of the box in case we have changes coming in from the server. This will save us some work later, and give us cross-device syncing for free.</p>
 
 <script>
 var lastColorId;
 function addNewColorToList(color) {
-  $('.colorList').prepend('<li data-id="'+color.id+'">'+color.name+' (id: '+color.id+')</li>');
+  $('.colorList').prepend(
+    '<li data-id="'+color.id+'">' +
+      color.name + ' (id: '+color.id+')' +
+    '</li>'
+    );
   $(document.body).css('background', color.name);
   lastColorId = color.id;
 }
@@ -53,7 +57,8 @@ function removeColorFromList(color) {
   }
 }
 function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').text(color.name+' (id: '+color.id+')');
+  $('.colorList').find('[data-id="'+color.id+'"]')
+    .text(color.name+' (id: '+color.id+')');
   if (color.id === lastColorId) {
     $(document.body).css('background', color.name);
   }
@@ -71,7 +76,12 @@ hoodie.store.on('update', updateColorOnList);
 $(function() {
   hoodie.store.findAll().then(function(colors) {
     if (colors.length === 0) {
-      $('.colorList').replaceWith('<hr><p>Looks like you did not add colors yet, go back to <a href="/4.html">step four</a>.</p><hr>');
+      $('.colorList').replaceWith(
+        '<hr><p>' +
+        'Looks like you did not add colors yet, go back to ' +
+        '<a href="/4.html">step four</a>.' +
+        '</p><hr>'
+      );
     }
     colors.sort(byCreatedAt).forEach(addNewColorToList);
   })

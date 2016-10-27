@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/prism/prism.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap-3.3.7/js/bootstrap.js"></script>
     <script src="assets/vendor/prism/prism.js"></script>
     <!-- Load the dynamic version of hoodie.js that includes all the plugin code-->
     <script src="/hoodie/client.js"></script>
@@ -171,14 +171,20 @@ function showSignOutButton() {
 }
 
 function addNewColorToList(color) {
-  $('.colorList').prepend('<li data-id="'+color.id+'"><span>'+color.name+'</span> (id: '+color.id+') <a style="color: #c00; font-weight: bold;" href="#" data-id="'+color.id+'">×</a></li>');
+  $('.colorList').prepend(
+    '<li data-id="'+color.id+'">' +
+    '<span>'+color.name+'</span> (id: '+color.id+') ' +
+    '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+    '</li>'
+  );
   $('html').css('background', color.name);
 }
 function removeColorFromList(color) {
   $('.colorList').find('[data-id="'+color.id+'"]').remove();
 }
 function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').text(color.name+' (id: '+color.id+')');
+  $('.colorList').find('[data-id="'+color.id+'"]')
+    .text(color.name+' (id: '+color.id+')');
   $('html').css('background', $('.colorList li span').eq(0).text())
 }
 function clearColorList() {

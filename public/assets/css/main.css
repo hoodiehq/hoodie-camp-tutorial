@@ -7,6 +7,7 @@ html {
 }
 body {
   background: transparent;
+  font-size: 16px;
 }
 
 .container {
@@ -22,6 +23,33 @@ body {
   padding: 20px;
 }
 
+/* Make the content easier to read by limiting the width of the elements. */
+.content {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add more space around the page elements */
+.content nav:last-child {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+.content pre,
+.content .service-worker-status-text {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.content form {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.content .ciu_embed {
+  margin-top: 30px;
+}
+.content pre {
+  border-width: 0;
+}
 
 .copy {
   padding: 20px;
@@ -30,12 +58,17 @@ body {
 }
 .jumbotron,
 .copy {
-  background: #EBE7DA;
+  background: #f5f5f5;
   margin: 0;
   border-radius: 0;
 }
 .copy p {
   margin: 0;
+}
+@media (min-width: 767px) {
+  .jumbotron {
+    text-align: center;
+  }
 }
 
 .colorList {
@@ -60,6 +93,10 @@ body {
   font-style: italic;
   font-size: 0.8;
 }
+.colorList li .remove {
+  color: #c00;
+  font-weight: bold;
+}
 
 .content h3 {
   border-top: 1px solid #ddd;
@@ -78,10 +115,24 @@ body {
   text-align: center;
 }
 
-.service-worker-status {
-  font-size: 1.2em; 
-  border: 1px solid black;
-  padding: 0 3px 0 3px; 
+.service-worker-status,
+.connect-status,
+.status,
+.connection-status {
+  padding: 0 5px 2px 5px;
+}
+
+.glyphicon {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+
+.connect-status-success{
+  color: #690;
+}
+
+.connect-status-error{
+  color: #F00;
 }
 
 [data-service-worker="ready"] .service-worker.ready {
