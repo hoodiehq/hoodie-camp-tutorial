@@ -47,7 +47,7 @@ function addNewColorToList(color) {
       color.name + ' (id: '+color.id+')' +
     '</li>'
     );
-  $(document.body).css('background', color.name);
+  $('html').css('background', 'transparent');
   lastColorId = color.id;
 }
 function removeColorFromList(color) {
@@ -60,7 +60,7 @@ function updateColorOnList(color) {
   $('.colorList').find('[data-id="'+color.id+'"]')
     .text(color.name+' (id: '+color.id+')');
   if (color.id === lastColorId) {
-    $(document.body).css('background', color.name);
+    $('html').css('background', color.name);
   }
 }
 
