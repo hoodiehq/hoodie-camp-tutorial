@@ -41,20 +41,23 @@
         </p>
 
 <script>
-// start checking if server can be reached
-hoodie.connectionStatus.startChecking({interval: 1000});
 
-// check initial connection status
-if (hoodie.connectionStatus.ok === false) {
-  $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span>  offline ¯\\_(ツ)_/¯');
-}
+hoodie.ready.then(function () {
+  // start checking if server can be reached
+  hoodie.connectionStatus.startChecking({interval: 1000});
 
-hoodie.connectionStatus.on('disconnect', function () {
-  $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span> offline ¯\\_(ツ)_/¯');
-});
-hoodie.connectionStatus.on('reconnect', function () {
-  $('.connect-status').html('<span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> online :)');
-});
+  // check initial connection status
+  if (hoodie.connectionStatus.ok === false) {
+    $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span>  offline ¯\\_(ツ)_/¯');
+  }
+
+  hoodie.connectionStatus.on('disconnect', function () {
+    $('.connect-status').html('<span class="glyphicon glyphicon-remove-sign connect-status-error" aria-hidden="true"></span> offline ¯\\_(ツ)_/¯');
+  });
+  hoodie.connectionStatus.on('reconnect', function () {
+    $('.connect-status').html('<span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> online :)');
+  });
+})
 </script>
 
         <h3>You current connection status is: <strong class="connect-status"><span class="glyphicon glyphicon-ok-sign connect-status-success" aria-hidden="true"></span> online :)</strong></h3>

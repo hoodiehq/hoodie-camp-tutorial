@@ -44,31 +44,33 @@
         <p>When you click the button, this is what happens:</p>
 
 <script>
-$('#formColor').submit(function(event) {
-  // prevent page reload
-  event.preventDefault();
+hoodie.ready.then(function () {
+  $('#formColor').submit(function(event) {
+    // prevent page reload
+    event.preventDefault();
 
-  var color = $('#formColor input').val();
-  $('html').css('background', color);
+    var color = $('#formColor input').val();
+    $('html').css('background', color);
 
-  // But this time, we save the new color with Hoodie
-  hoodie.store.add({
-    name: color
+    // But this time, we save the new color with Hoodie
+    hoodie.store.add({
+      name: color
+    });
   });
-});
 
-// when the site loads in the browser,
-// we load all previously saved colors from hoodie
-// order them descending by the time they were created
-// and set the last one as the background color and input value
-hoodie.store.findAll().then(function(colors) {
-  colors = colors.sort(byCreatedAt);
+  // when the site loads in the browser,
+  // we load all previously saved colors from hoodie
+  // order them descending by the time they were created
+  // and set the last one as the background color and input value
+  hoodie.store.findAll().then(function(colors) {
+    colors = colors.sort(byCreatedAt);
 
-  var lastColor = colors.shift();
-  if (!lastColor) return;
+    var lastColor = colors.shift();
+    if (!lastColor) return;
 
-  $('#formColor input').val(lastColor.name);
-  $('html').css('background', lastColor.name);
+    $('#formColor input').val(lastColor.name);
+    $('html').css('background', lastColor.name);
+  })
 })
 </script>
 

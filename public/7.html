@@ -42,12 +42,14 @@
         </p>
 
 <script>
-if (hoodie.account.isSignedIn()) {
-  $('.status').text('signed in as ' + hoodie.account.username);
-  $('.signed-in-note').show();
-} else {
-  $('.status').text('signed out');
-}
+hoodie.ready.then(function () {
+  if (hoodie.account.isSignedIn()) {
+    $('.status').text('signed in as ' + hoodie.account.username);
+    $('.signed-in-note').show();
+  } else {
+    $('.status').text('signed out');
+  }
+})
 </script>
 
         <p>
@@ -58,10 +60,14 @@ if (hoodie.account.isSignedIn()) {
 function signUp() {
   var username = prompt('username');
   var password = prompt('password');
-  hoodie.account.signUp({
-    username: username,
-    password: password
-  })
+
+  hoodie.ready
+    .then(function () {
+      return hoodie.account.signUp({
+        username: username,
+        password: password
+      })
+    })
     .then(function() {
       return hoodie.account.signIn({
         username: username,

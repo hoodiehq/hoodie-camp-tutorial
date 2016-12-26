@@ -37,58 +37,60 @@
         <p>Here's the code that populates the list above:</p>
 
 <script>
-// when the site loads in the browser,
-// load all previously saved colors from hoodie
-// and set the last one as the background color
-hoodie.store.findAll().then(function(colors) {
-  var $list = $('.colorList');
+hoodie.ready.then(function () {
+  // when the site loads in the browser,
+  // load all previously saved colors from hoodie
+  // and set the last one as the background color
+  hoodie.store.findAll().then(function(colors) {
+    var $list = $('.colorList');
 
-  // check if color entries exist
-  if (colors.length === 0) {
-    $list.replaceWith(
-      '<hr><p>' +
-      'Looks like you did not add colors yet, ' +
-      'go back to <a href="/4.html">the last step</a>.' +
-      '</p><hr>'
-    );
-    return;
-  }
+    // check if color entries exist
+    if (colors.length === 0) {
+      $list.replaceWith(
+        '<hr><p>' +
+        'Looks like you did not add colors yet, ' +
+        'go back to <a href="/4.html">the last step</a>.' +
+        '</p><hr>'
+      );
+      return;
+    }
 
-  // add all saved colors to the list
-  colors = colors.sort(byCreatedAt)
-  colors.forEach(function(color) {
-    $list.append(
-      '<li>' +
-      '<span>'+color.name+'</span> ' +
-      '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
-      '</li>'
-    );
-  });
+    // add all saved colors to the list
+    colors = colors.sort(byCreatedAt)
+    colors.forEach(function(color) {
+      $list.append(
+        '<li>' +
+        '<span>'+color.name+'</span> ' +
+        '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+        '</li>'
+      );
+    });
 
-  // set to current background color
-  if (colors.length) {
-    $(document.body).css('background', colors[0].name)
-  }
-})
+    // set to current background color
+    if (colors.length) {
+      $(document.body).css('background', colors[0].name)
+    }
+  })
 
-// delete a color when the "x"-Button is pressed
-$('.colorList').on('click', 'a', function(event) {
-  // prevent page reload
-  event.preventDefault();
+  // delete a color when the "x"-Button is pressed
+  $('.colorList').on('click', 'a', function(event) {
+    // prevent page reload
+    event.preventDefault();
 
-  var id = $(event.target).data('id');
-  if (!id) return;
-  $(event.target).closest('li').remove();
-  hoodie.store.remove(id);
+    var id = $(event.target).data('id');
+    if (!id) return;
+    $(event.target).closest('li').remove();
+    hoodie.store.remove(id);
 
-  // update current color
-  if ($('.colorList li').length) {
-    $(document.body).css('background',
-      $('.colorList li span').eq(0).text()
-    );
-  } else {
-    $(document.body).css('background', 'transparent');
-  }
+    // update current color
+    if ($('.colorList li').length) {
+      $(document.body).css('background',
+        $('.colorList li span').eq(0).text()
+      );
+    } else {
+      $(document.body).css('background', 'transparent');
+    }
+  })
 })
 </script>
 

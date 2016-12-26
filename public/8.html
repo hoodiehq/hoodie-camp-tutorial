@@ -58,45 +58,47 @@
         </p>
 
 <script>
-if (hoodie.account.isSignedIn()) {
-  showSignOutButton();
-} else {
-  showSignInForm();
-}
+hoodie.ready.then(function () {
+  if (hoodie.account.isSignedIn()) {
+    showSignOutButton();
+  } else {
+    showSignInForm();
+  }
 
-hoodie.account.on('signin', showSignOutButton);
-hoodie.account.on('signout', showSignInForm);
+  hoodie.account.on('signin', showSignOutButton);
+  hoodie.account.on('signout', showSignInForm);
 
-// handle form submit
-$('#formSignIn').submit(function(event) {
-  // prevent page reload
-  event.preventDefault();
+  // handle form submit
+  $('#formSignIn').submit(function(event) {
+    // prevent page reload
+    event.preventDefault();
 
-  var username = $('#inputUsername').val();
-  var password = $('#inputPassword').val();
+    var username = $('#inputUsername').val();
+    var password = $('#inputPassword').val();
 
-  hoodie.account.signIn({
-    username: username,
-    password: password
+    hoodie.account.signIn({
+      username: username,
+      password: password
+    })
+      .then(function () {
+        // clear input fields
+        $('#inputUsername, #inputPassword').val('');
+      })
+      .catch(function(error) {
+        alert('ooops: ' + error.message);
+      })
   })
-    .then(function () {
-      // clear input fields
-      $('#inputUsername, #inputPassword').val('');
-    })
-    .catch(function(error) {
-      alert('ooops: ' + error.message);
-    })
+
+
+  function showSignInForm() {
+    $('.show-when-signed-in').show();
+    $('.show-when-signed-out').hide();
+  }
+  function showSignOutButton() {
+    $('.show-when-signed-out').show();
+    $('.show-when-signed-in').hide();
+  }
 })
-
-
-function showSignInForm() {
-  $('.show-when-signed-in').show();
-  $('.show-when-signed-out').hide();
-}
-function showSignOutButton() {
-  $('.show-when-signed-out').show();
-  $('.show-when-signed-in').hide();
-}
 </script>
 
         <p>Now you know how to handle signing up, in and out. You're all set for the final step!</p>
