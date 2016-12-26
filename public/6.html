@@ -39,50 +39,52 @@
         work out of the box in case we have changes coming in from the server. This will save us some work later, and give us cross-device syncing for free.</p>
 
 <script>
-var lastColorId;
-function addNewColorToList(color) {
-  $('.colorList').prepend(
-    '<li data-id="'+color.id+'">' +
-      color.name + ' (id: '+color.id+')' +
-    '</li>'
-    );
-  $(document.body).css('background', color.name);
-  lastColorId = color.id;
-}
-function removeColorFromList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').remove();
-  if ($('.colorList li').length === 0)  {
-    $(document.body).css('background', 'transparent');
-  }
-}
-function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]')
-    .text(color.name+' (id: '+color.id+')');
-  if (color.id === lastColorId) {
-    $(document.body).css('background', color.name);
-  }
-}
-
-// when entries in the store change (add, delete, update)
-// run the corresponding function
-hoodie.store.on('add', addNewColorToList);
-hoodie.store.on('remove', removeColorFromList);
-hoodie.store.on('update', updateColorOnList);
-
-// when the site loads in the browser,
-// load all previously saved colors from hoodie
-// and set the last one as the background color
-$(function() {
-  hoodie.store.findAll().then(function(colors) {
-    if (colors.length === 0) {
-      $('.colorList').replaceWith(
-        '<hr><p>' +
-        'Looks like you did not add colors yet, go back to ' +
-        '<a href="/4.html">step four</a>.' +
-        '</p><hr>'
+hoodie.ready.then(function () {
+  var lastColorId;
+  function addNewColorToList(color) {
+    $('.colorList').prepend(
+      '<li data-id="'+color.id+'">' +
+        color.name + ' (id: '+color.id+')' +
+      '</li>'
       );
+    $(document.body).css('background', color.name);
+    lastColorId = color.id;
+  }
+  function removeColorFromList(color) {
+    $('.colorList').find('[data-id="'+color.id+'"]').remove();
+    if ($('.colorList li').length === 0)  {
+      $(document.body).css('background', 'transparent');
     }
-    colors.sort(byCreatedAt).forEach(addNewColorToList);
+  }
+  function updateColorOnList(color) {
+    $('.colorList').find('[data-id="'+color.id+'"]')
+      .text(color.name+' (id: '+color.id+')');
+    if (color.id === lastColorId) {
+      $(document.body).css('background', color.name);
+    }
+  }
+
+  // when entries in the store change (add, delete, update)
+  // run the corresponding function
+  hoodie.store.on('add', addNewColorToList);
+  hoodie.store.on('remove', removeColorFromList);
+  hoodie.store.on('update', updateColorOnList);
+
+  // when the site loads in the browser,
+  // load all previously saved colors from hoodie
+  // and set the last one as the background color
+  $(function() {
+    hoodie.store.findAll().then(function(colors) {
+      if (colors.length === 0) {
+        $('.colorList').replaceWith(
+          '<hr><p>' +
+          'Looks like you did not add colors yet, go back to ' +
+          '<a href="/4.html">step four</a>.' +
+          '</p><hr>'
+        );
+      }
+      colors.sort(byCreatedAt).forEach(addNewColorToList);
+    })
   })
 })
 </script>

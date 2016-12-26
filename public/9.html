@@ -80,116 +80,118 @@
         </p>
 
 <script>
-// start checking if server can be reached
-hoodie.connectionStatus.startChecking({interval: 1000});
+hoodie.ready.then(function () {
+  // start checking if server can be reached
+  hoodie.connectionStatus.startChecking({interval: 1000});
 
-// check initial connection status
-if (hoodie.connectionStatus.ok === false) {
-  $('.connection-status').text('offline ¯\\_(ツ)_/¯');
-}
+  // check initial connection status
+  if (hoodie.connectionStatus.ok === false) {
+    $('.connection-status').text('offline ¯\\_(ツ)_/¯');
+  }
 
-hoodie.connectionStatus.on('disconnect', function () {
-  $('.connection-status').text('offline ¯\\_(ツ)_/¯');
-});
-hoodie.connectionStatus.on('reconnect', function () {
-  $('.connection-status').text('online :)');
-});
+  hoodie.connectionStatus.on('disconnect', function () {
+    $('.connection-status').text('offline ¯\\_(ツ)_/¯');
+  });
+  hoodie.connectionStatus.on('reconnect', function () {
+    $('.connection-status').text('online :)');
+  });
 
-if (hoodie.account.username) {
-  showSignOutButton();
-} else {
-  showSignInForm();
-}
+  if (hoodie.account.username) {
+    showSignOutButton();
+  } else {
+    showSignInForm();
+  }
 
-hoodie.account.on('signin', showSignOutButton);
-hoodie.account.on('signout', showSignInForm);
+  hoodie.account.on('signin', showSignOutButton);
+  hoodie.account.on('signout', showSignInForm);
 
-// handle form submit
-$('#formSignIn').submit(function(event) {
-  var username = $('#inputUsername').val();
-  var password = $('#inputPassword').val();
+  // handle form submit
+  $('#formSignIn').submit(function(event) {
+    var username = $('#inputUsername').val();
+    var password = $('#inputPassword').val();
 
-  hoodie.account.signIn({
-    username: username,
-    password: password
-  })
-    .then(function () {
-      // clear input fields
-      $('#inputUsername, #inputPassword').val('');
+    hoodie.account.signIn({
+      username: username,
+      password: password
     })
-    .catch(function(error) {
-      alert('ooops: ' + error.message);
-    })
-  // prevent the site to reload in the browser
-  event.preventDefault();
-})
-
-$('#formColor').submit(function(event) {
-  var color = $('#formColor input').val();
-  $(document.body).css('background', color);
-
-  // save a new color with Hoodie
-  hoodie.store.add({name: color});
-
-  // prevent the site to reload in the browser
-  event.preventDefault();
-})
-$('.colorList').on('click', 'a', function(event) {
-  var id = $(event.target).closest('li').data('id');
-  $(event.target).closest('li').remove();
-  hoodie.store.remove(id);
-
-  // prevent the site to reload in the browser
-  event.preventDefault();
-})
-
-// when entries in the store change (add, delete, update)
-// execute the specific function
-hoodie.store.on('add', addNewColorToList);
-hoodie.store.on('remove', removeColorFromList);
-hoodie.store.on('update', updateColorOnList);
-hoodie.store.on('clear', clearColorList);
-
-// when the site loads in the browser,
-// load all previously saved colors from hoodie
-// and set the last one as the background color
-$(function() {
-  hoodie.store.findAll().then(function(colors) {
-    colors.sort(byCreatedAt).reverse().forEach(addNewColorToList);
+      .then(function () {
+        // clear input fields
+        $('#inputUsername, #inputPassword').val('');
+      })
+      .catch(function(error) {
+        alert('ooops: ' + error.message);
+      })
+    // prevent the site to reload in the browser
+    event.preventDefault();
   })
+
+  $('#formColor').submit(function(event) {
+    var color = $('#formColor input').val();
+    $(document.body).css('background', color);
+
+    // save a new color with Hoodie
+    hoodie.store.add({name: color});
+
+    // prevent the site to reload in the browser
+    event.preventDefault();
+  })
+  $('.colorList').on('click', 'a', function(event) {
+    var id = $(event.target).closest('li').data('id');
+    $(event.target).closest('li').remove();
+    hoodie.store.remove(id);
+
+    // prevent the site to reload in the browser
+    event.preventDefault();
+  })
+
+  // when entries in the store change (add, delete, update)
+  // execute the specific function
+  hoodie.store.on('add', addNewColorToList);
+  hoodie.store.on('remove', removeColorFromList);
+  hoodie.store.on('update', updateColorOnList);
+  hoodie.store.on('clear', clearColorList);
+
+  // when the site loads in the browser,
+  // load all previously saved colors from hoodie
+  // and set the last one as the background color
+  $(function() {
+    hoodie.store.findAll().then(function(colors) {
+      colors.sort(byCreatedAt).reverse().forEach(addNewColorToList);
+    })
+  })
+
+  function showSignInForm() {
+    $('.show-when-signed-in').show();
+    $('.show-when-signed-out').hide();
+  }
+  function showSignOutButton() {
+    $('.show-when-signed-out').show();
+    $('.show-when-signed-in').hide();
+    $('.username').text(hoodie.account.username)
+  }
+
+  function addNewColorToList(color) {
+    $('.colorList').prepend(
+      '<li data-id="'+color.id+'">' +
+      '<span>'+color.name+'</span> (id: '+color.id+') ' +
+      '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
+      '</li>'
+    );
+    $('html').css('background', color.name);
+  }
+  function removeColorFromList(color) {
+    $('.colorList').find('[data-id="'+color.id+'"]').remove();
+  }
+  function updateColorOnList(color) {
+    $('.colorList').find('[data-id="'+color.id+'"]')
+      .text(color.name+' (id: '+color.id+')');
+    $('html').css('background', $('.colorList li span').eq(0).text())
+  }
+  function clearColorList() {
+    $('.colorList').empty();
+    $('html').css('background', 'transparent');
+  }
 })
-
-function showSignInForm() {
-  $('.show-when-signed-in').show();
-  $('.show-when-signed-out').hide();
-}
-function showSignOutButton() {
-  $('.show-when-signed-out').show();
-  $('.show-when-signed-in').hide();
-  $('.username').text(hoodie.account.username)
-}
-
-function addNewColorToList(color) {
-  $('.colorList').prepend(
-    '<li data-id="'+color.id+'">' +
-    '<span>'+color.name+'</span> (id: '+color.id+') ' +
-    '<a class="remove" href="#" data-id="'+color.id+'">×</a>' +
-    '</li>'
-  );
-  $('html').css('background', color.name);
-}
-function removeColorFromList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]').remove();
-}
-function updateColorOnList(color) {
-  $('.colorList').find('[data-id="'+color.id+'"]')
-    .text(color.name+' (id: '+color.id+')');
-  $('html').css('background', $('.colorList li span').eq(0).text())
-}
-function clearColorList() {
-  $('.colorList').empty();
-  $('html').css('background', 'transparent');
-}
 </script>
 
         <p>
