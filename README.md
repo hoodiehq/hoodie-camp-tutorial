@@ -5,6 +5,8 @@
 This is an app with instructions that you can follow
 to learn all the basics about `hoodie.store` and `hoodie.account`.
 
+TFTOUWFNTUYOTNFWYUn
+
 ## Requirements
 
 - [git](http://www.git-scm.com/)
