@@ -4,6 +4,7 @@ services:
 language: node_js
 node_js:
   - 4
+  - 10
 notifications:
   email: false
 before_install:
